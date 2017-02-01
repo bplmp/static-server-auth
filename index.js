@@ -14,13 +14,8 @@ app.use(stormpath.init(app, {
 
 app.on('stormpath.ready', function() {
   app.listen(process.env.PORT || 3000);
+  var port = process.env.PORT || 3000;
+  console.log('Serving on ' + port);
 });
 
-app.use(stormpath.auth_fn, express.static(__dirname + '/public'));
-
-// app.use(express.static(__dirname + '/public'));
-// app.set('view engine', 'ejs');
-//
-// app.get('/', stormpath.loginRequired, function(req, res) {
-//   res.render('index', { title: 'Home', user: req.user });
-// });
+app.use(stormpath.loginRequired, express.static(__dirname + '/private'));
