@@ -16,9 +16,11 @@ app.on('stormpath.ready', function() {
   app.listen(process.env.PORT || 3000);
 });
 
-app.use(express.static(__dirname + '/public'));
-app.set('view engine', 'ejs');
+app.use(stormpath.auth_fn, express.static(__dirname + '/public'));
 
-app.get('/', stormpath.loginRequired, function(req, res) {
-  res.render('index', { title: 'Home', user: req.user });
-});
+// app.use(express.static(__dirname + '/public'));
+// app.set('view engine', 'ejs');
+//
+// app.get('/', stormpath.loginRequired, function(req, res) {
+//   res.render('index', { title: 'Home', user: req.user });
+// });
